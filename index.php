@@ -10,29 +10,19 @@
 <body>
 
 <div id = new-post class = "container">
-    <div class = "form-group">
-        <label for = "post-title">Title:</label>
-        <input type = 'text' class = "form-control" id = "post-title">
-    </div>
-    <div class = "form-group">
-        <label for = "post-body">Body:</label>
-        <textarea class = "form-control" rows = "5" id = "post-body"></textarea>
-    </div>
-    <button type = "button" class = "btn btn-info">Post!</button>
+    <form action="handlePost.php" method="post">
+    Name: <input type="text" name="name"><br>
+    Body: <input type="text" name="body"><br>
+    <input type="submit">
+    </form>
 </div>
 
 <?php
-$servername = "localhost";
-$username = "bloguser";
-$password = "password";
-$db = "phpblog";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $db);
-// Check connection
+include "db_connection.php";
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  } 
+$db = new DBConnect();
+
+$conn = $db->OpenConnection();
 
 $sql = "SELECT * FROM Posts";
 $result = $conn->query($sql);
@@ -44,6 +34,7 @@ if ($result->num_rows > 0){
 } else {
     echo "0 results";
 }
+$db->CloseConnection();
 ?>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
