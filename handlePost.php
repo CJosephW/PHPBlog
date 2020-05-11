@@ -12,4 +12,6 @@ if ($conn->query($query) === TRUE){
 } else {
     echo "Error";
 }
+header('Location: index.php');
+exit;
 ?>
