@@ -1,14 +1,20 @@
 body{
-    background-image: url("/static/images/canadian-dollar.png");
+    background-image: url("/static/images/background.png");
 }
 
 #new-post{
+    width: 75%;
+
     display: flex;
     align-items: center;
     flex-direction: column;
 
-    background-color: whitesmoke;
+    background-color: #9e50cc;
     
+
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 8px -4px black;
 }
 
 .container{
@@ -20,9 +26,26 @@ body{
 }
 
 .posts{
-    background-color: whitesmoke;
+    width: 75%;
+    
+    background-color: #9e50cc;
     display: flex;
     flex-direction: column;
+    
     align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+
+    border: 2px solid black;
+    border-radius: 5px;
+    
+
     padding:5px;
+    margin: 15px auto;
+
+    box-shadow: 5px 5px 8px -4px black;
+}
+
+h2{
+    font-weight: bold;
 }

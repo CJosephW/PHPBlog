@@ -12,7 +12,7 @@
 <div id = new-post class = "container">
     <form action="handlePost.php" method="post">
     Name: <input type="text" name="name"><br>
-    Body: <input type="text" name="body"><br>
+    Body: <textarea  name="body" rows="4" cols = "50"></textarea><br>
     <input type="submit">
     </form>
 </div>
@@ -29,7 +29,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0){
     while($row = $result->fetch_assoc()) {
-        echo "<div class = 'posts'> <h2>".$row["id"]. "</h2><p>". $row["body"]."</p></div>";
+        echo "<div class = 'posts'> <h2>".$row["name"]. "</h2><p>". $row["body"]."</p></div>";
     }
 } else {
     echo "0 results";
