@@ -10,7 +10,7 @@ $link = $db->OpenConnection();
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
 
-if ($SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //check username
     if(empty(trim($_POST["username"]))){
         $username_err = "no username entered";
@@ -19,7 +19,7 @@ if ($SERVER["REQUEST_METHOD"] == "POST"){
 
         if($stmt = mysqli_prepare($link, $sql)){
             
-            mysqli_smt_bind_param($stmt, "s", $param_username);
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
 
             $param_username = trim($_POST["username"]);
 
@@ -27,7 +27,7 @@ if ($SERVER["REQUEST_METHOD"] == "POST"){
                 //store result
                 mysqli_stmt_store_result($stmt);
 
-                if(msqli_stmt_num_rows($stmt) ==1){
+                if(mysqli_stmt_num_rows($stmt) == 1){
                     $username_err = "this username is already in use";
                 } else{
                     $username = trim($_POST["username"]);
