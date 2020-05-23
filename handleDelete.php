@@ -9,13 +9,15 @@ $db = new DBConnect();
 
 $conn = $db->OpenConnection();
 
-$query = "DELETE FROM Posts WHERE id = $id";
+$query = "DELETE FROM userPosts WHERE id = ?";
 
+if($stmt = mysqli_prepare($conn, $query)){
+    mysqli_stmt_bind_param($stmt, "s", $id);
 
-if ($conn->query($query) === TRUE){
-    echo "Deleted Succesfully";
-} else {
-    echo "Error";
+    if(mysqli_stmt_execute($stmt)){
+        echo "deleted succesfully";
+    }
 }
+
 
 ?>

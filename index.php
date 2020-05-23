@@ -15,30 +15,46 @@
 
 <div id = new-post class = "container">
     <form action="handlePost.php" method="post">
-    Name: <input type="text" name="name"><br>
+    Title: <input type="text" name="title"><br>
     Body: <textarea  name="body" rows="4" cols = "50"></textarea><br>
     <input type="submit">
     </form>
 </div>
 
 <?php
+session_start();
+
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+
 include "db_connection.php";
 
 $db = new DBConnect();
 
 $conn = $db->OpenConnection();
 
-$sql = "SELECT * FROM Posts";
-$result = $conn->query($sql);
 
-if ($result->num_rows > 0){
-    while($row = $result->fetch_assoc()) {
-        echo "<div class = 'posts'> <h2>".$row["name"]. "</h2><p>". $row["body"]."</p><input id = ".$row["id"]." class = 'delete-button'type = button value = 'x'></input></div>";
+$sql = "SELECT * FROM userPosts WHERE username = ?";
+if($stmt = mysqli_prepare($conn, $sql)){
+    mysqli_stmt_bind_param($stmt, "s", htmlspecialchars($_SESSION['username']));
+
+    if(mysqli_stmt_execute($stmt)){
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0){
+            while($row = $result->fetch_assoc()) {
+                echo "<div class = 'posts'>"." <h2>".$row["title"]. "</h2><p>". $row["body"]."</p><input id = ".$row["id"]." class = 'delete-button'type = button value = 'x'></input></div>";
+            }
+        } else {
+            echo "0 results";
+        }
+        $db->CloseConnection();
+    } else {
+        echo "Somethin went wrong";
     }
-} else {
-    echo "0 results";
 }
-$db->CloseConnection();
+
 ?>
     <script type = "text/javascript" src="/static/js/main.js"></script> 
     
