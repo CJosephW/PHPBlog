@@ -1,0 +1,8 @@
+body{
+    background-image: url('/static/images/login-background.jpg');
+    text-align: center;
+}
+
+.wrapper{
+    margin:auto;
+}

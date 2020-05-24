@@ -15,9 +15,9 @@
 
 <div id = new-post class = "container">
     <form action="handlePost.php" method="post">
-    Title: <input type="text" name="title"><br>
+    Title:   <input type="text" name="title"><br>
     Body: <textarea  name="body" rows="4" cols = "50"></textarea><br>
-    <input type="submit">
+    <input type="submit" value = "Post!">
     </form>
 </div>
 
@@ -47,7 +47,7 @@ if($stmt = mysqli_prepare($conn, $sql)){
                 echo "<div class = 'posts'>"." <h2>".$row["title"]. "</h2><p>". $row["body"]."</p><input id = ".$row["id"]." class = 'delete-button'type = button value = 'x'></input></div>";
             }
         } else {
-            echo "0 results";
+            echo "<h4 style = 'text-align:center';>No posts found, make one!</h2>";
         }
         $db->CloseConnection();
     } else {
